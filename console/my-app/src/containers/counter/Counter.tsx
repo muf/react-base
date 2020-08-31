@@ -14,26 +14,41 @@ export function Counter() {
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
 
+  return CounterPresenter({
+    count: count
+    , onIncrementClick: () => {dispatch(increment())}
+    , onDecrementClick: () => {dispatch(decrement())}
+  });
+}
+
+export interface CounterPresenterProps {
+  count: Number
+  , onIncrementClick: () => any
+  , onDecrementClick: () => any
+};
+
+export function CounterPresenter(props: CounterPresenterProps) {
+
   return (
     <div>
       <div className={styles.row}>
         <button
           className={styles.button}
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
+          aria-label='Increment value'
+          onClick={props.onIncrementClick}
         >
           +
         </button>
-        <span className={styles.value}>{count}</span>
+        <span className={styles.value}>{props.count}</span>
         <button
           className={styles.button}
           aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
+          onClick={props.onDecrementClick}
         >
           -
         </button>
       </div>
-      <div className={styles.row}>
+      {/* <div className={styles.row}>
         <input
           className={styles.textbox}
           aria-label="Set increment amount"
@@ -54,7 +69,7 @@ export function Counter() {
         >
           Add Async
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
