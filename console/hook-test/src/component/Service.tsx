@@ -8,7 +8,7 @@ export const Service = () => {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/a" component={() => <DummyPresenter label={"a"}/>}/>
-                {/*<Route exact path="/b" component={() => <DummyPresenter label={"b"}/>}/>*/}
+                <Route exact path="/b" component={() => <DummyPresenter label={"b"}/>}/>
                 <Route exact path="/*" component={() => <>아무거나</>}/>
             </Switch>
         </BrowserRouter>
