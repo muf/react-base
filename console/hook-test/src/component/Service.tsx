@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {DummyPresenter} from "./DummyPresenter";
+import {HookTestContainer} from "./HookTestContainer";
 
 
 export const Service = () => {
@@ -9,6 +10,7 @@ export const Service = () => {
             <Switch>
                 <Route exact path="/a" component={() => <DummyPresenter label={"a"}/>}/>
                 <Route exact path="/b" component={() => <DummyPresenter label={"b"}/>}/>
+                <Route exact path="/hooktest" component={() => <HookTestContainer />}/>
                 <Route exact path="/*" component={() => <>아무거나</>}/>
             </Switch>
         </BrowserRouter>
