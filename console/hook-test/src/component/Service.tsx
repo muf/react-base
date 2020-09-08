@@ -4,7 +4,8 @@ import {DummyPresenter} from "./DummyPresenter";
 import {HookTestContainer} from "./HookTestContainer";
 import {HookTestContainer2} from "./HookTestContainer2";
 import {Dashboard} from "./Dashboard";
-import {Buttons} from "./Buttons";
+import {Layout} from "./Layout";
+import {Layout2} from "./Layout2";
 
 
 
@@ -17,8 +18,10 @@ export const Service = () => {
                 <Route exact path="/hooktest" component={() => <HookTestContainer/>}/>
                 <Route exact path="/hooktest2" component={() => <HookTestContainer2/>}/>
                 <Route exact path="/dashboard" component={() => <Dashboard/>}/>
-                <Route exact path="/buttons" component={() => <Buttons/>}/>
-                <Route exact path="/*" component={() => <>아무거나</>}/>
+                <Route exact path="/layout/*" component={() => <Layout/>}/>
+                <Route exact path="/layout2/*" component={() => <Layout2/>}/>
+                <Route exact path="/case1/*" component={() => <Layout2/>}/>
+                <Route exact path="/*" component={() => <>미구현 페이지</>}/>
             </Switch>
         </BrowserRouter>
     );

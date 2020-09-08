@@ -7,7 +7,6 @@ import {
   CCol,
   CRow
 } from '@coreui/react'
-import '../css/all.css'
 
 export const Buttons = () => {
   return (
