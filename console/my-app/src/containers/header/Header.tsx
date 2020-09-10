@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {counterSlice, selectCount} from "../counter/counterSlice";
 import {Test} from "../Test";
@@ -9,16 +9,17 @@ export interface HeaderCompProps {
 //
 
 const HeaderComp = (props: HeaderCompProps) => {
+    console.log("nani?!!!!")
     useEffect(() => {
         // Update the document title using the browser API
-        console.log("effect mount")
+        console.log("@@@@@@@@@@@@@@@@@effect mount")
+        return (() => {
+            console.log("@@@@@@@@@@@@@@@@@@@header umount")
+        })
     }, []);
-    useEffect(() => {
-        // Update the document title using the browser API
-        console.log("effect updated or mount")
-    });
 
-    const count = useSelector(selectCount);
+    const [count, setCount] = useState(0);
+    // const count = useSelector(selectCount);
     const dispatch = useDispatch();
     const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
@@ -32,7 +33,7 @@ const HeaderComp = (props: HeaderCompProps) => {
             <span>{`> ${props.title}`}</span>
             <span> This is HeaderComp.</span>
             <span>${count}</span>
-            <button onClick={() => dispatch(increment())}> + </button>
+            <button onClick={() => setCount(state => state +1)}> + </button>
             <Test />
         </div>
     );

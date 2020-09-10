@@ -25,7 +25,7 @@ export const HookTestContainer2 = () => {
             const result = await axios(
                 `http://localhost:3100/test?timeout=1000`
             )
-            console.log(result.data.data[0])
+            // console.log(result.data.data[0])
             console.log('end')
             //이건 따로되네,,? (상태 변화가 실제 없을 지라도 set State 호출되면 전체를 다시 탄다. 그게 실제 dom 랜더링을 시키진 않지만,, 호출은 무조건 됨 - 싫으면 pure로 만들면됨 아니면 "부분적으로 의존성 추가")
             // 아니구나 Memo 안되지 참ㅋㅋㅋ,, 따로 컴포넌트를 분리해야 가능할듯..

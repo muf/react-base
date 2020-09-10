@@ -1,12 +1,22 @@
-import React, { useState, useRef, useCallback, useMemo, useEffect } from 'react';
-import { SimpleCounterPresenter, SimpleCounterPresenterProps } from './SimpleCounterPresenter';
-import { SimpleInputPresenter, SimpleInputPresenterProps } from './SimpleInputPresenter';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {SimpleCounterPresenter, SimpleCounterPresenterProps} from './SimpleCounterPresenter';
+import {SimpleInputPresenter, SimpleInputPresenterProps} from './SimpleInputPresenter';
 import converter from '../utils/converter';
 import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../redux/store/rootStore";
+import {counterSlice, CounterState, incrementAsync} from "../redux/reducer/counterSlice";
+import {Link} from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+
 
 export const HookTestContainer = () => {
-    const [counter, setCounter] = useState<number>(0);
+    const counter = (useSelector<RootState>(state => state.counter) as CounterState).value;
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [input, setInput] = useState<string>("0");
+    const { increment, decrement, incrementByAmount } = counterSlice.actions;
+    const current = useRef();
     // const inputRef = useRef<HTMLInputElement>(null);
 
     const testRef1 = useRef(1);
@@ -14,6 +24,13 @@ export const HookTestContainer = () => {
     // console.log(inputRef);
     // console.log(inputRef.current?.value);
 
+    useEffect(() => {
+        console.log("@@@@@@@@@@@@@@@@@@@ 초기화", history.location.pathname)
+        return () => {
+            console.log("##### unmount", history.location.pathname)
+        }
+
+    }, [])
     const inputRef = useCallback((node) => {
         console.log(testRef2.current)
         console.log("callback")
@@ -26,7 +43,7 @@ export const HookTestContainer = () => {
         counter
         , counterLabel: "increase"
         , setCounter: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            setCounter(state => state + converter.stringToNumber(input, 0));
+            dispatch(increment(converter.stringToNumber(input, 0)));
         }
         , isButtonDisable: false
     }
@@ -40,8 +57,7 @@ export const HookTestContainer = () => {
     }
 
     const CondComp = useMemo(() => {
-        console.log(testRef2.current)
-        console.log(`CondComp`)
+        console.log(`counter 변화 -> version: ${testRef2.current}`)
         return (
             <>
                 <div> input 변화: counter: {counter}</div>
@@ -53,21 +69,23 @@ export const HookTestContainer = () => {
  
     //@ts-ignore
     useEffect(() => {
-        console.log(testRef2.current)
+        console.log(testRef2.current, ' @@ api call')
         const callApi = async () => {
             const result = await axios(
                 'https://hn.algolia.com/api/v1/search?query=redux'+counter,
             )
-            console.log(result.data.hits[0].objectID)
+            // console.log(result.data.hits[0].objectID)
             // setData(result.data);
         };
         counter !== 0 && callApi();
-    }, [counter]); 
-
+    }, [counter]);
+    //@ts-ignore
+    console.log(`현재 상태: ${current.current?.history}`)
     useEffect(() => {
-        console.log(testRef2.current, 'wait for [previous hook. is it blocking? i dont think so..? but it makes sense/ this is nonblocking')
-    })
-    
+        //@ts-ignore
+        current.current = {history: history.location.pathname}
+    });
+
     // 이런식으로 체크 가능
     const wak = input.length >= 3;
     useEffect(() => {
@@ -85,11 +103,23 @@ export const HookTestContainer = () => {
         }
         testRef2.current = testRef2.current + 1
     })
+    const onClick = () => {
+        dispatch(incrementAsync(100));
+        history.goBack()
+    }
+    useEffect(() => {
+        // goback에 의한게 여기까지 오는지? 랜더 이후 실행인데 랜더가 안되니 안올거 같은데?
+        console.log('!!!!history changed')
+        console.log(history.location.pathname)
+    }, [history]);
     return (
         <>
             <SimpleCounterPresenter {...presenterProps} />
             <SimpleInputPresenter {...inputPresenterProps} />
             {CondComp}
+            <Link to={{pathname: '/hooktest'}}> go to v1</Link>
+            <Link to={{pathname: '/hooktest2'}}> go to v2</Link>
+            <button onClick={onClick}> async and go back </button>
         </>
     )
 }
