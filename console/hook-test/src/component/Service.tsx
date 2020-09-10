@@ -5,6 +5,7 @@ import {MainPage} from "./MainPage";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {RootState} from "../index";
+import {Dashboard} from "./Dashboard";
 
 const useSaveLastHistoryState = (pathname: string, historyRef: any) => {
     useEffect(() => {
@@ -62,8 +63,8 @@ export const Service = () => {
     switch(true) {
         case page?.includes('main'): return <MainPage/>
         case page?.includes('hooktest'): return <HookTestContainer/>
-        case page?.includes('none'): return <><div>아무곳또 아닙니다</div></>
-        default: return <><div>아무곳또 아닙니다</div></>
+        case page?.includes('none'): return  <Dashboard/>
+        default: return <Dashboard/>
     }
     // return (
     //         <Switch>
