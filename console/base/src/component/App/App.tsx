@@ -1,16 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import {DummyPresenter} from "../Dummy/DummyPresenter";
-import {HeaderNav} from "../Test/Header";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {LayoutPresenter} from "../Layout/LayoutPresenter";
+
 /**
  * url 단위로 page 제공
  */
 export const App = () => {
   return (
       <BrowserRouter>
-        <Switch>
-            <Route exact path="/header" component={HeaderNav}/>
-            <Route exact path="/*" component={DummyPresenter}/>
+          <Switch>
+            <Route exact path="*" name="home" component={LayoutPresenter}/>
         </Switch>
       </BrowserRouter>
   );

@@ -1,18 +1,18 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {composeWithDevTools} from "redux-devtools-extension";
-import {TestState, testStateReducer} from "../reducer/testStateReducer";
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from "../../saga/rootSaga";
+import {sideNavReducer, SideNavState} from "../reducer/sideNavReducer";
 
 export type RootState = {
-    testState: TestState
+    sideNavState: SideNavState
 };
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
     combineReducers({
-        testState: testStateReducer
+        sideNavState: sideNavReducer
     })
     , composeWithDevTools(applyMiddleware(sagaMiddleware))
 );

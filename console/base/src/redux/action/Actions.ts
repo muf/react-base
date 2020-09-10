@@ -1,4 +1,5 @@
 import {Action} from 'redux';
+import {SideNavVisibility} from "../reducer/sideNavReducer";
 /**
  * Action Type들을 하나의 파일에 명시
  * (많아질 경우 별도 분리)
@@ -15,15 +16,13 @@ const asyncActionType = (prefix: string) => ({
     , ERROR: `${prefix}_ERROR`
 });
 
-export const testAction = {
+export const sideNavAction = {
     type: {
-        TEST_FETCH: asyncActionType('TEST')
-        , TEST_UPDATE: 'TEST_UPDATE'
-        , TEST_INIT: 'TEST_INIT'
+        SIDENAV_UPDATE_VISIBILITY: 'SIDENAV_UPDATE_VISIBILITY'
     }
-    , ac: {
-        update: (page: number): CommonAction<number> => {
-            return { type: testAction.type.TEST_UPDATE, payload: 3 }
+    , actionCreator: {
+        updateVisibility: (isVisible: SideNavVisibility): CommonAction<SideNavVisibility> => {
+            return { type: sideNavAction.type.SIDENAV_UPDATE_VISIBILITY, payload: isVisible }
         }
     }
 };
