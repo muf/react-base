@@ -26,3 +26,9 @@ export const sideNavAction = {
         }
     }
 };
+
+export const ticketListAction = {
+    type: {
+        TICKETLIST_UPDATE: asyncActionType('TICKETLIST_UPDATE')
+    }
+};

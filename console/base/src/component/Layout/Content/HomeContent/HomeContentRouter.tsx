@@ -6,7 +6,7 @@ import {HomeContainer} from "./HomeContainer";
 export const HomeContentRouter = () => {
     return (
         <Switch>
-            <Route exact path="/home" render={props => <HomeContainer />} />
+            <Route exact path="/home" component={HomeContainer} />
             <Route exact path="/home/intro" component={DummyPresenter}/>
             <Route exact path="/home/auth" component={DummyPresenter}/>
             <Route exact path="/home/guide" component={DummyPresenter}/>

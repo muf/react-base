@@ -3,8 +3,8 @@ import axios, {AxiosResponse} from 'axios';
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 3000;
 
-export const getRequest = <T>(url: string): Promise<AxiosResponse<T>> => {
-    return axios.get(url);
+export const getRequest = <T>(url: string): () => Promise<AxiosResponse<T>> => {
+    return () => axios.get(url);
 };
 
 export const postJsonRequest = <T>(url: string, data: JSON): Promise<AxiosResponse<T>> => {
