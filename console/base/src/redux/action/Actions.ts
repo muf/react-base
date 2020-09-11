@@ -1,5 +1,5 @@
-import {Action} from 'redux';
 import {SideNavVisibility} from "../reducer/sideNavReducer";
+
 /**
  * Action Type들을 하나의 파일에 명시
  * (많아질 경우 별도 분리)

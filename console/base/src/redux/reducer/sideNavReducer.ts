@@ -14,8 +14,11 @@ const initState: SideNavState = {
 export const sideNavReducer = (state = initState, action: Action): SideNavState => {
     switch(action.type) {
         case sideNavAction.type.SIDENAV_UPDATE_VISIBILITY:
-            //@ts-ignore
-            return { ...state, isVisible: action!.payload };
+            return {
+                ...state
+                //@ts-ignore
+                , isVisible: action!.payload
+            };
         default:
             return { ...state }
     }

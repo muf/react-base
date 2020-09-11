@@ -18,6 +18,7 @@ export const SideNavPresenter = (props: {
         , items: any[]
         , onShowChange?: Function}
     ) => {
+
     return (
         <CSidebar
             show={props.isVisible}

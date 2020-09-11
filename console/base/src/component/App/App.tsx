@@ -9,6 +9,7 @@ export const App = () => {
   return (
       <BrowserRouter>
           <Switch>
+            {/*   404, login .. 추가 예정   */}
             <Route exact path="*" name="home" component={LayoutPresenter}/>
         </Switch>
       </BrowserRouter>
