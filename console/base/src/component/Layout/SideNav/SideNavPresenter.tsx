@@ -11,10 +11,13 @@ import {
     CSidebarNavTitle
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import menuList from './sideNavMenu';
 import {SideNavVisibility} from "../../../redux/reducer/sideNavReducer";
 
-export const SideNavPresenter = (props: {isVisible: SideNavVisibility, onShowChange?: Function}) => {
+export const SideNavPresenter = (props: {
+        isVisible: SideNavVisibility
+        , items: any[]
+        , onShowChange?: Function}
+    ) => {
     return (
         <CSidebar
             show={props.isVisible}
@@ -33,9 +36,8 @@ export const SideNavPresenter = (props: {isVisible: SideNavVisibility, onShowCha
                 />
             </CSidebarBrand>
             <CSidebarNav>
-
                 <CCreateElement
-                    items={menuList}
+                    items={props.items}
                     components={{
                         CSidebarNavDivider,
                         CSidebarNavDropdown,

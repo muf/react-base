@@ -2,7 +2,7 @@ import React from 'react';
 
 import {CHeader, CHeaderBrand, CHeaderNav, CHeaderNavItem, CHeaderNavLink, CToggler,} from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import menuList from './headerNavMenu';
+import {ServiceSelector} from "./ServiceSelector.jsx";
 
 type Props = {
     toggleSidebar: (e:React.MouseEvent<HTMLButtonElement>) => any
@@ -26,15 +26,12 @@ export const HeaderNavPresenter = (props: Props) => {
                 <CIcon name="logo" height="48" alt="Logo"/>
             </CHeaderBrand>
             <CHeaderNav className="d-md-down-none mr-auto">
-                {
-                    Array.from(menuList).map((menu) => {
-                        return (
-                            <CHeaderNavItem className="px-3" key={menu.label}>
-                                <CHeaderNavLink to={menu.to}>{menu.label}</CHeaderNavLink>
-                            </CHeaderNavItem>
-                        )
-                    })
-                }
+                <CHeaderNavItem className="px-3">
+                    <CHeaderNavLink to='/home'>Home</CHeaderNavLink>
+                </CHeaderNavItem>
+                <CHeaderNavItem className="px-3">
+                    <ServiceSelector />
+                </CHeaderNavItem>
             </CHeaderNav>
         </CHeader>
     )

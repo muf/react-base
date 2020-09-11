@@ -1,9 +1,12 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-export const DummyPresenter = () => {
+export const DummyPresenter = (props: {label: string}) => {
+    const history = useHistory();
+
     return (
       <>
-          <div> 미구현 페이지 입니다. </div>
+          <div> [{props.label}]미구현 페이지 입니다. {history.location.pathname} </div>
       </>
     );
 };
