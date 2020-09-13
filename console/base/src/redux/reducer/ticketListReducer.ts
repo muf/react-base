@@ -12,7 +12,7 @@ export type Status = 'REQUESTED' | 'SUCCESS' | 'ERROR'
 
 export type TicketListState = {
     ticketListStateMap: {
-        [key: string]: TicketInfo
+        [key: string]: TicketInfo[]
     }
     ticketListStatusMap: {
         [key: string]: Status
@@ -30,14 +30,25 @@ const getStatusUpdatedState = (state: TicketListState, key: string, status: Stat
     return copiedState;
 };
 
+const getListUpdatedState = (state: TicketListState, key: string, list: TicketInfo[]): TicketListState => {
+    const copiedState =  _.cloneDeep(state);
+    copiedState.ticketListStateMap[key] = list;
+    return copiedState;
+};
+
 export const ticketListReducer = (state = initState, action: Action): TicketListState => {
     switch(action.type) {
         case ticketListAction.type.TICKETLIST_UPDATE.REQUESTED:
             //@ts-ignore
             return getStatusUpdatedState(state, action!.payload, 'REQUESTED');
         case ticketListAction.type.TICKETLIST_UPDATE.SUCCESS:
+            console.log("success.?")
             //@ts-ignore
-            return getStatusUpdatedState(state, action!.payload, 'SUCCESS');
+            return getListUpdatedState(
+                //@ts-ignore
+                getStatusUpdatedState(state, action!.payload.key, 'SUCCESS')
+                //@ts-ignore
+                , action!.payload.key, action!.payload.list);
         case ticketListAction.type.TICKETLIST_UPDATE.ERROR:
             //@ts-ignore
             return getStatusUpdatedState(state, action!.payload, 'ERROR');

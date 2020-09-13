@@ -15,7 +15,11 @@ const asyncActionType = (prefix: string) => ({
     , SUCCESS: `${prefix}_SUCCESS`
     , ERROR: `${prefix}_ERROR`
 });
-
+export const commonAction = {
+    type: {
+        URL_CHANGED: 'URL_CHANGED'
+    }
+};
 export const sideNavAction = {
     type: {
         SIDENAV_UPDATE_VISIBILITY: 'SIDENAV_UPDATE_VISIBILITY'

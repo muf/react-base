@@ -52,12 +52,12 @@ export const Service = () => {
     const historyRef = useRef<string>();
     const historyCurrent = historyRef.current;
     const [count, setCount] = useState(0);
-    const page = useSelector<RootState>(state => state.testState.page) as string;
+    let page = useSelector<RootState>(state => state.testState.page) as string;
 
+    page='hooktest';
     console.log("!!!! page", page)
     useSaveLastHistoryState(pathname, historyRef);
     useInitOnPathChange(pathname, historyRef);
-
 
     console.log("hash 변화도 반응한다")
     switch(true) {

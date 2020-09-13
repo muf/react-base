@@ -9,36 +9,43 @@ import {ticketListAction} from "../../../../redux/action/Actions";
 export const ServiceContainer = () => {
     const serviceIndicator = pageHistoryUtil.getServiceIndicator();
     const ticketListState = useSelector<RootState, TicketListState>(state => state.ticketListState);
-    useListLoadOnHistoryChanged();
 
-    console.log(ticketListState);
+    console.log(ticketListState)
     const list = ticketListState.ticketListStateMap[serviceIndicator];
     const status = ticketListState.ticketListStatusMap[serviceIndicator];
 
-    return isLoading ? <Loading/> : (
-        <>
-            123
-        </>
+    return (
+        isError(status) ? <Error/> : (
+            isLoading(status) ? <Loading/> : (
+                <>
+                    {
+                        list.map((item) => {
+                            return (
+                                <div key={item.id}>
+                                    { item.template  }
+                                </div>
+                            );
+                        })
+                    }
+                </>
+            )
+        )
     );
 };
 
-const useListLoadOnHistoryChanged = () => {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const serviceIndicator = pageHistoryUtil.getServiceIndicator();
-
-    useEffect(() => {
-        console.log("history changed");
-        dispatch({type: ticketListAction.type.TICKETLIST_UPDATE.REQUESTED, payload: serviceIndicator});
-    }, [history]);
-};
-
-const isLoading = (status: Status) => ['REQUESTED', undefined].includes(status);
-
+const isLoading = (status: Status) => !['SUCCESS'].includes(status);
+const isError   = (status: Status) => ['ERROR'].includes(status);
 const Loading = () => {
     return (
         <>
             로딩중.....
+        </>
+    )
+};
+const Error = () => {
+    return (
+        <>
+            에러 발생.....
         </>
     )
 };

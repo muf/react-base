@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from "../../saga/rootSaga";
 import {sideNavReducer, SideNavState} from "../reducer/sideNavReducer";
 import {ticketListReducer, TicketListState} from "../reducer/ticketListReducer";
-
+import { reduxBatch }  from '@manaflair/redux-batch';
 export type RootState = {
     sideNavState: SideNavState
     ticketListState: TicketListState
@@ -17,6 +17,6 @@ export const store = createStore(
         sideNavState: sideNavReducer
         , ticketListState: ticketListReducer
     })
-    , composeWithDevTools(applyMiddleware(sagaMiddleware))
+    , composeWithDevTools(applyMiddleware(sagaMiddleware), reduxBatch)
 );
 sagaMiddleware.run(rootSaga);

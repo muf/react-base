@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from 'axios';
 
-axios.defaults.withCredentials = true;
-axios.defaults.timeout = 3000;
+// axios.defaults.withCredentials = true;
+axios.defaults.timeout = 10000;
 
 export const getRequest = <T>(url: string): () => Promise<AxiosResponse<T>> => {
     return () => axios.get(url);
